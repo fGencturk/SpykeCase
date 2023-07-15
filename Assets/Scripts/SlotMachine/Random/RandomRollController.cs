@@ -5,9 +5,8 @@ using Infrastructure.Save;
 using Random.Force;
 using Random.Milestone;
 using Random.Roll;
-using UnityEngine;
 
-namespace Random
+namespace SlotMachine.Random
 {
     public class RandomRollController
     {

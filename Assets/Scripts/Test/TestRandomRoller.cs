@@ -41,7 +41,7 @@ namespace Test
             {
                 var combinationIndex = _randomRollController.GetNextCombinationIndex();
                 combinationIdToSelectedRolls[combinationIndex].Add(i);
-                Debug.Log($"Combination index {i}, last rolled in index: {_playerData.GetLastHitIndex(i)}");
+                Debug.Log($"Combination index {i}, last rolled in index: {combinationIndex}");
             }
 
             for (var combinationIndex = 0; combinationIndex < combinationIdToSelectedRolls.Count; combinationIndex++)

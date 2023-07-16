@@ -15,21 +15,31 @@ MonoBehaviour:
   _SlotCombinationConfigs:
   - _SlotItems: 000000000100000002000000
     _Percentage: 13
+    _ThrownCoinAmount: 0
   - _SlotItems: 010000000100000003000000
     _Percentage: 13
+    _ThrownCoinAmount: 0
   - _SlotItems: 040000000400000000000000
     _Percentage: 13
+    _ThrownCoinAmount: 0
   - _SlotItems: 010000000200000000000000
     _Percentage: 13
+    _ThrownCoinAmount: 0
   - _SlotItems: 020000000000000004000000
     _Percentage: 13
+    _ThrownCoinAmount: 0
   - _SlotItems: 000000000000000000000000
     _Percentage: 9
+    _ThrownCoinAmount: 10
   - _SlotItems: 020000000200000002000000
     _Percentage: 8
+    _ThrownCoinAmount: 20
   - _SlotItems: 030000000300000003000000
     _Percentage: 7
+    _ThrownCoinAmount: 30
   - _SlotItems: 010000000100000001000000
     _Percentage: 6
+    _ThrownCoinAmount: 40
   - _SlotItems: 040000000400000004000000
     _Percentage: 5
+    _ThrownCoinAmount: 50

@@ -11,6 +11,7 @@ namespace Core.Data
 
         [SerializeField] private SlotItemType[] _SlotItems;
         [SerializeField] private int _Percentage;
+        [SerializeField] private short _ThrownCoinAmount;
 
         #endregion
 
@@ -18,6 +19,7 @@ namespace Core.Data
 
         public SlotItemType[] SlotItems => _SlotItems;
         public int Percentage => _Percentage;
+        public short ThrownCoinAmount => _ThrownCoinAmount;
 
         #endregion
     }

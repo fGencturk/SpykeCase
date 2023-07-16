@@ -5,5 +5,6 @@ namespace Infrastructure.Save
         int CurrentRollIndex { get; set; }
         int GetLastHitIndex(int slotIndex);
         void SetLastHitIndex(int slotIndex, int lastHitIndex);
+        void Clear(int slotCount);
     }
 }

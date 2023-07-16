@@ -1,9 +1,9 @@
-using System;
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Text;
+using Common;
 using Core.Data;
 using Infrastructure.Save;
-using Random;
 using Random.Force;
 using Random.Milestone;
 using Random.Roll;
@@ -23,14 +23,13 @@ namespace Test
         private RandomRollController _randomRollController;
         private SlotMachinePlayerData _playerData;
 
-        private void Awake()
+        public void RollUntil(int index)
         {
-            PlayerPrefs.DeleteAll();
             var forceHaveCombinationProvider = new ForceHaveCombinationProvider(_SlotMachineConfig);
             var combinationMilestoneProvider = new CombinationMilestoneProvider(_SlotMachineConfig);
             var randomRollProvider = new RandomRollProvider(_SlotMachineConfig);
             _playerData = new SlotMachinePlayerData();
-            _randomRollController = new RandomRollController(forceHaveCombinationProvider, combinationMilestoneProvider, randomRollProvider, _playerData);
+            _randomRollController = new RandomRollController(forceHaveCombinationProvider, combinationMilestoneProvider, randomRollProvider, _playerData, _SlotMachineConfig.SlotCombinationConfigs.Count);
 
             var combinationIdToSelectedRolls = new List<List<int>>();
             foreach (var slotCombinationConfig in _SlotMachineConfig.SlotCombinationConfigs)
@@ -38,11 +37,11 @@ namespace Test
                 combinationIdToSelectedRolls.Add(new List<int>());
             }
 
-            for (int i = 0; i < 100; i++)
+            for (int i = _playerData.CurrentRollIndex; i < index; i++)
             {
                 var combinationIndex = _randomRollController.GetNextCombinationIndex();
                 combinationIdToSelectedRolls[combinationIndex].Add(i);
-                Debug.LogWarning($"{combinationIndex} SELECTED for step {_playerData.CurrentRollIndex}");
+                Debug.Log($"Combination index {i}, last rolled in index: {_playerData.GetLastHitIndex(i)}");
             }
 
             for (var combinationIndex = 0; combinationIndex < combinationIdToSelectedRolls.Count; combinationIndex++)
@@ -53,7 +52,7 @@ namespace Test
                 var selectedRollIndexes = combinationIdToSelectedRolls[combinationIndex];
                 foreach (var selectedRollIndex in selectedRollIndexes)
                 {
-                    var interval = combinationMilestoneProvider.GetCombinationMilestone(combinationIndex, selectedRollIndex);
+                    var interval = combinationMilestoneProvider.GetCombinationMilestoneOfRollIndex(combinationIndex, selectedRollIndex);
                     intervalString.Append($"{interval.Min}-{interval.Max}\t\t");
                     rolledIndexesString.Append($"{selectedRollIndex}\t\t");
                 }
@@ -64,3 +63,4 @@ namespace Test
         }
     }
 }
+#endif

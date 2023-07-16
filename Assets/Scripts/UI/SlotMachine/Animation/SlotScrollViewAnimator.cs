@@ -20,7 +20,7 @@ namespace UI.SlotMachine.Animation
 
         private const float OvershootMultiplier = 2f;
         
-        private IEnumerator AnimateCoroutine(ISlotScrollView slotScrollView, SlotItemType targetItemType, float initialDelay, Action<float> onPosChange)
+        private IEnumerator AnimateCoroutine(ISlotScrollView slotScrollView, SlotItemType targetItemType, float initialDelay, Action<float> onPosChange, Action onComplete)
         {
             var targetIndex = slotScrollView.OrderedSlotItemTypes.IndexOf(targetItemType);
 
@@ -69,11 +69,12 @@ namespace UI.SlotMachine.Animation
             position.y = initialHeight + totalHeightDiff;
             slotScrollView.ScrollContent.anchoredPosition = position;
             onPosChange?.Invoke(0);
+            onComplete?.Invoke();
         }
 
-        public void Animate(SlotScrollView slotScrollView, SlotItemType targetItemType, float initialDelay, Action<float> onPosChange)
+        public void Animate(SlotScrollView slotScrollView, SlotItemType targetItemType, float initialDelay, Action<float> onPosChange, Action onComplete)
         {
-            var coroutine = AnimateCoroutine(slotScrollView, targetItemType, initialDelay, onPosChange);
+            var coroutine = AnimateCoroutine(slotScrollView, targetItemType, initialDelay, onPosChange, onComplete);
             slotScrollView.StartCoroutine(coroutine);
         }
     }

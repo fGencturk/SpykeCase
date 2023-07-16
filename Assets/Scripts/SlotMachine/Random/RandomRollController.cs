@@ -5,6 +5,7 @@ using Infrastructure.Save;
 using Random.Force;
 using Random.Milestone;
 using Random.Roll;
+using UnityEngine;
 
 namespace SlotMachine.Random
 {
@@ -14,18 +15,26 @@ namespace SlotMachine.Random
         private readonly ICombinationMilestoneProvider _combinationMilestoneProvider;
         private readonly IRandomRollProvider _randomRollProvider;
         private readonly IPlayerData _playerData;
+        private readonly int _combinationCount;
 
-        public RandomRollController(IForceHaveCombinationProvider forceHaveCombinationProvider, ICombinationMilestoneProvider combinationMilestoneProvider, IRandomRollProvider randomRollProvider, IPlayerData playerData)
+        public RandomRollController(IForceHaveCombinationProvider forceHaveCombinationProvider, ICombinationMilestoneProvider combinationMilestoneProvider, IRandomRollProvider randomRollProvider, IPlayerData playerData, int combinationCount)
         {
             _forceHaveCombinationProvider = forceHaveCombinationProvider;
             _combinationMilestoneProvider = combinationMilestoneProvider;
             _randomRollProvider = randomRollProvider;
             _playerData = playerData;
+            _combinationCount = combinationCount;
         }
 
         public int GetNextCombinationIndex()
         {
             var nextRollIndex = _playerData.CurrentRollIndex + 1;
+
+            if (nextRollIndex == Constants.TotalPercentageWeight)
+            {
+                _playerData.Clear(_combinationCount);
+                nextRollIndex = _playerData.CurrentRollIndex + 1;
+            }
             
             var cumulativeForceHaveCombinationIndexes = new List<int>();
             for (var i = nextRollIndex; i < Constants.TotalPercentageWeight; i++)
@@ -48,6 +57,9 @@ namespace SlotMachine.Random
 
             var distinctValues = cumulativeForceHaveCombinationIndexes.Distinct().Where(combinationIndex =>
                 !IsRolledInCurrentMilestone(combinationIndex, nextRollIndex)).ToList();
+            
+            Debug.Log($"[{string.Join(",", distinctValues.OrderBy(index => index))}] - Random item is selection limited by these combination indexes");
+            
             var selectedCombinationIndex = _randomRollProvider.SelectRandomCombination(distinctValues);
             _playerData.CurrentRollIndex = nextRollIndex;
             _playerData.SetLastHitIndex(selectedCombinationIndex, nextRollIndex);
@@ -57,7 +69,7 @@ namespace SlotMachine.Random
         private bool IsRolledInCurrentMilestone(int combinationIndex, int currentRollIndex)
         {
             return _playerData.GetLastHitIndex(combinationIndex) >= _combinationMilestoneProvider
-                .GetCombinationMilestone(combinationIndex, currentRollIndex).Min;
+                .GetCombinationMilestoneOfRollIndex(combinationIndex, currentRollIndex).Min;
         }
         
         

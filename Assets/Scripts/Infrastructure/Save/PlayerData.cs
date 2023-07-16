@@ -26,6 +26,15 @@ namespace Infrastructure.Save
         {
             PlayerPrefs.SetInt($"{SlotMachinePrefPrefix}{slotIndex}", lastHitIndex);
         }
+
+        public void Clear(int slotCount)
+        {
+            CurrentRollIndex = -1;
+            for (var i = 0; i < slotCount; i++)
+            {
+                SetLastHitIndex(i, -1);
+            }
+        }
         
         
     }

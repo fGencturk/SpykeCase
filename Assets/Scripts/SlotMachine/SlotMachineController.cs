@@ -1,4 +1,3 @@
-using System;
 using Core.Data;
 using Infrastructure.Event;
 using Infrastructure.Save;
@@ -32,7 +31,14 @@ namespace SlotMachine
             var combinationMilestoneProvider = new CombinationMilestoneProvider(_SlotMachineConfig);
             var randomRollProvider = new RandomRollProvider(_SlotMachineConfig);
             _playerData = new SlotMachinePlayerData();
-            _randomRollController = new RandomRollController(forceHaveCombinationProvider, combinationMilestoneProvider, randomRollProvider, _playerData);
+            _randomRollController = new RandomRollController(forceHaveCombinationProvider, combinationMilestoneProvider, randomRollProvider, _playerData, _SlotMachineConfig.SlotCombinationConfigs.Count);
+            
+            Debug.Log($"Current roll index: {_playerData.CurrentRollIndex}");
+            for (var i = 0; i < _SlotMachineConfig.SlotCombinationConfigs.Count; i++)
+            {
+                Debug.Log($"Combination index {i}, last rolled in index: {_playerData.GetLastHitIndex(i)}");
+            }
+            
         }
 
         private void OnEnable()
@@ -53,7 +59,7 @@ namespace SlotMachine
         {
             var combinationIndex = _randomRollController.GetNextCombinationIndex();
             var slotCombinationConfig = _SlotMachineConfig.SlotCombinationConfigs[combinationIndex];
-            Debug.Log($"{combinationIndex}: {string.Join(",", slotCombinationConfig.SlotItems)} is Selected!");
+            Debug.Log($"RollIndex:{_playerData.CurrentRollIndex}, Selected CombinationIndex:{combinationIndex} [{string.Join(",", slotCombinationConfig.SlotItems)}]");
             EventManager.Send(SlotMachineRolledEvent.Create(slotCombinationConfig));
         }
 

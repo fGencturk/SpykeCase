@@ -1,6 +1,6 @@
 namespace Common.Model
 {
-    public class IntervalInt
+    public struct IntervalInt
     {
         public int Min { get; }
         public int Max { get; }

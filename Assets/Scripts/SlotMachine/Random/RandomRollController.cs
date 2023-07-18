@@ -57,9 +57,6 @@ namespace SlotMachine.Random
 
             var distinctValues = cumulativeForceHaveCombinationIndexes.Distinct().Where(combinationIndex =>
                 !IsRolledInCurrentMilestone(combinationIndex, nextRollIndex)).ToList();
-            
-            Debug.Log($"[{string.Join(",", distinctValues.OrderBy(index => index))}] - Random item is selection limited by these combination indexes");
-            
             var selectedCombinationIndex = _randomRollProvider.SelectRandomCombination(distinctValues);
             _playerData.CurrentRollIndex = nextRollIndex;
             _playerData.SetLastHitIndex(selectedCombinationIndex, nextRollIndex);

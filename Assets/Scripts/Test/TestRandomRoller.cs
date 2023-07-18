@@ -23,7 +23,7 @@ namespace Test
         private RandomRollController _randomRollController;
         private SlotMachinePlayerData _playerData;
 
-        public void RollUntil(int index)
+        public void RollUntil()
         {
             var forceHaveCombinationProvider = new ForceHaveCombinationProvider(_SlotMachineConfig);
             var combinationMilestoneProvider = new CombinationMilestoneProvider(_SlotMachineConfig);
@@ -37,7 +37,8 @@ namespace Test
                 combinationIdToSelectedRolls.Add(new List<int>());
             }
 
-            for (int i = _playerData.CurrentRollIndex; i < index; i++)
+            _playerData.Clear(_SlotMachineConfig.SlotCombinationConfigs.Count);
+            for (int i = 0; i < Constants.TotalPercentageWeight; i++)
             {
                 var combinationIndex = _randomRollController.GetNextCombinationIndex();
                 combinationIdToSelectedRolls[combinationIndex].Add(i);

@@ -3,7 +3,7 @@ using Infrastructure.Event;
 
 namespace UI.Event
 {
-    public class SlotMachineRollStartedEvent : IEvent
+    public struct SlotMachineRollStartedEvent : IEvent
     {
         #region Properties
         

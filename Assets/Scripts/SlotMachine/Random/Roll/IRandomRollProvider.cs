@@ -4,6 +4,6 @@ namespace Random.Roll
 {
     public interface IRandomRollProvider
     {
-        public int SelectRandomCombination(IList<int> availableCombinationIndexes);
+        public int SelectRandomCombination(IEnumerator<int> availableCombinationIndexes);
     }
 }

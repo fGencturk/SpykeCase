@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Enum;
 using UI.SlotMachine.Animation;
 using UnityEngine;
@@ -35,8 +34,12 @@ namespace UI.SlotMachine
 
         private void Start()
         {
-            OrderedSlotItemTypes = _SlotItemViews.Select(slotItemView => slotItemView.ItemType).ToList();
-            SlotViewSize = _SlotItemViews.First().RectTransform.rect.height;
+            OrderedSlotItemTypes = new List<SlotItemType>();
+            for (var i = 0; i < _SlotItemViews.Count; i++)
+            {
+                OrderedSlotItemTypes.Add(_SlotItemViews[i].ItemType);
+            }
+            SlotViewSize = _SlotItemViews[0].RectTransform.rect.height;
             UpdateViewPositions();
         }
 

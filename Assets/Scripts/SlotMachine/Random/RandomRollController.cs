@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using Common;
 using Infrastructure.Save;
 using Random.Force;
 using Random.Milestone;
 using Random.Roll;
-using UnityEngine;
 
 namespace SlotMachine.Random
 {
@@ -44,8 +42,17 @@ namespace SlotMachine.Random
                     continue;
                 }
 
-                var unRolledForceHaveCombinationIndexes = forceHaveCombinationIndexes.Where(combinationIndex => !IsRolledInCurrentMilestone(combinationIndex, i));
-                cumulativeForceHaveCombinationIndexes.AddRange(unRolledForceHaveCombinationIndexes);
+                // Remove already rolled combinations
+                for (var j = forceHaveCombinationIndexes.Count - 1; j >= 0; j--)
+                {
+                    var combinationIndex = forceHaveCombinationIndexes[j];
+                    if (IsRolledInCurrentMilestone(combinationIndex, i))
+                    {
+                        forceHaveCombinationIndexes.RemoveAt(j);
+                    }
+                }
+
+                cumulativeForceHaveCombinationIndexes.AddRange(forceHaveCombinationIndexes);
 
                 var numberOfRolls = i - _playerData.CurrentRollIndex;
                 if (numberOfRolls <= cumulativeForceHaveCombinationIndexes.Count)
@@ -55,9 +62,17 @@ namespace SlotMachine.Random
                 }
             }
 
-            var distinctValues = cumulativeForceHaveCombinationIndexes.Distinct().Where(combinationIndex =>
-                !IsRolledInCurrentMilestone(combinationIndex, nextRollIndex)).ToList();
-            var selectedCombinationIndex = _randomRollProvider.SelectRandomCombination(distinctValues);
+            var distinctValues = new HashSet<int>();
+            for (var i = 0; i < cumulativeForceHaveCombinationIndexes.Count; i++)
+            {
+                var combinationIndex = cumulativeForceHaveCombinationIndexes[i];
+                if (!IsRolledInCurrentMilestone(combinationIndex, nextRollIndex))
+                {
+                    distinctValues.Add(combinationIndex);
+                }
+            }
+            
+            var selectedCombinationIndex = _randomRollProvider.SelectRandomCombination(distinctValues.GetEnumerator());
             _playerData.CurrentRollIndex = nextRollIndex;
             _playerData.SetLastHitIndex(selectedCombinationIndex, nextRollIndex);
             return selectedCombinationIndex;

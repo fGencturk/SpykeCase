@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Common;
 using Core.Data;
 
@@ -12,7 +11,10 @@ namespace Random.Force
         public ForceHaveCombinationProvider(SlotMachineConfig slotMachineConfig)
         {
             _rollIndexToForceHaveCombinations = new List<List<int>>();
-            _rollIndexToForceHaveCombinations.AddRange(Enumerable.Repeat<List<int>>(null, Constants.TotalPercentageWeight));
+            for (var i = 0; i < Constants.TotalPercentageWeight; i++)
+            {
+                _rollIndexToForceHaveCombinations.Add(null);
+            }
 
             for (var combinationIndex = 0; combinationIndex < slotMachineConfig.SlotCombinationConfigs.Count; combinationIndex++)
             {

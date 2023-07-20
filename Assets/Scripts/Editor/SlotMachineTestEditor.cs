@@ -1,6 +1,6 @@
 using System.Linq;
 using Core.Data;
-using SlotMachine.Editor.Test;
+using Editor.Test;
 using UnityEditor;
 using UnityEngine;
 

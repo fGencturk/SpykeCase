@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Random.Force
+namespace SlotMachine.Random.Force
 {
     public interface IForceHaveCombinationProvider
     {

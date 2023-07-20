@@ -3,7 +3,7 @@ using Common.Model;
 using Core.Data;
 using UnityEngine;
 
-namespace Random.Milestone
+namespace SlotMachine.Random.Milestone
 {
     public class CombinationMilestoneProvider : ICombinationMilestoneProvider
     {

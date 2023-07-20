@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Common;
 using Core.Data;
 
-namespace Random.Force
+namespace SlotMachine.Random.Force
 {
     public class ForceHaveCombinationProvider : IForceHaveCombinationProvider
     {

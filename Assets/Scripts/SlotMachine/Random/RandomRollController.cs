@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Common;
 using Infrastructure.Save;
-using Random.Force;
-using Random.Milestone;
-using Random.Roll;
+using SlotMachine.Random.Force;
+using SlotMachine.Random.Milestone;
+using SlotMachine.Random.Roll;
 
 namespace SlotMachine.Random
 {

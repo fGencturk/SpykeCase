@@ -1,11 +1,11 @@
 using Core.Data;
 using Infrastructure.Event;
 using Infrastructure.Save;
-using Random.Force;
-using Random.Milestone;
-using Random.Roll;
 using SlotMachine.Event;
 using SlotMachine.Random;
+using SlotMachine.Random.Force;
+using SlotMachine.Random.Milestone;
+using SlotMachine.Random.Roll;
 using UI.Event;
 using UnityEngine;
 

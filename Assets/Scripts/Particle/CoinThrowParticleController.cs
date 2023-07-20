@@ -2,7 +2,7 @@ using Infrastructure.Event;
 using UI.Event;
 using UnityEngine;
 
-namespace Particle.Coin
+namespace Particle
 {
     public class CoinThrowParticleController : MonoBehaviour
     {

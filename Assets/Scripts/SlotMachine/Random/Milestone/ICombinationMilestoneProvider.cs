@@ -1,6 +1,6 @@
 using Common.Model;
 
-namespace Random.Milestone
+namespace SlotMachine.Random.Milestone
 {
     public interface ICombinationMilestoneProvider
     {

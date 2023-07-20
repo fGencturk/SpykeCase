@@ -4,10 +4,10 @@ using System.Text;
 using Common;
 using Core.Data;
 using Infrastructure.Save;
-using Random.Force;
-using Random.Milestone;
-using Random.Roll;
 using SlotMachine.Random;
+using SlotMachine.Random.Force;
+using SlotMachine.Random.Milestone;
+using SlotMachine.Random.Roll;
 using UnityEngine;
 
 namespace Test

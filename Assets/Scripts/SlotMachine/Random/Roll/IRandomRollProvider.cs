@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Random.Roll
+namespace SlotMachine.Random.Roll
 {
     public interface IRandomRollProvider
     {

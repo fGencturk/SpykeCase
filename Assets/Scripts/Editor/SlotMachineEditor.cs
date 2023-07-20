@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Data;
 using Infrastructure.Save;
-using Random.Milestone;
+using SlotMachine.Random.Milestone;
 using UnityEditor;
 using UnityEngine;
 

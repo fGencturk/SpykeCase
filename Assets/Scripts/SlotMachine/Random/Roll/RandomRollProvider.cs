@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Data;
 
-namespace Random.Roll
+namespace SlotMachine.Random.Roll
 {
     public class RandomRollProvider : IRandomRollProvider
     {

@@ -25,7 +25,7 @@ namespace UI.SlotMachine.Animation
             var targetIndex = slotScrollView.OrderedSlotItemTypes.IndexOf(targetItemType);
 
             var totalHeightDiff = slotScrollView.GetHeightDiffToTarget(targetIndex, _WholeLoopCount);
-            var position = slotScrollView.ScrollContent.anchoredPosition;
+            var position = slotScrollView.ScrollContent.localPosition;
             var initialHeight = position.y;
             yield return new WaitForSeconds(initialDelay);
 
@@ -39,7 +39,7 @@ namespace UI.SlotMachine.Animation
                 var currentHeightDiff = _AnimationCurve.Evaluate(normalizedDuration) * totalHeightDiff;
                 
                 position.y = initialHeight + currentHeightDiff;
-                slotScrollView.ScrollContent.anchoredPosition = position;
+                slotScrollView.ScrollContent.localPosition = position;
 
                 lastHeightDiff = currentHeightDiff - previousHeightDiff;
                 onPosChange?.Invoke(lastHeightDiff);
@@ -57,7 +57,7 @@ namespace UI.SlotMachine.Animation
                 var overshootHeightDiff = _OvershootCurve.Evaluate(normalizedDuration) * overshootAmount;
                     
                 position.y = initialHeight + totalHeightDiff + overshootHeightDiff;
-                slotScrollView.ScrollContent.anchoredPosition = position;
+                slotScrollView.ScrollContent.localPosition = position;
             
                 lastHeightDiff = overshootHeightDiff - previousHeightDiff;
                 onPosChange?.Invoke(lastHeightDiff);
@@ -67,7 +67,7 @@ namespace UI.SlotMachine.Animation
             }
 
             position.y = initialHeight + totalHeightDiff;
-            slotScrollView.ScrollContent.anchoredPosition = position;
+            slotScrollView.ScrollContent.localPosition = position;
             onPosChange?.Invoke(0);
             onComplete?.Invoke();
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Common;
 using Core.Enum;
 using UI.SlotMachine.Animation;
 using UnityEngine;
@@ -11,12 +12,12 @@ namespace UI.SlotMachine
         #region Inspector
 
         [SerializeField] private List<SlotItemView> _SlotItemViews;
-        [SerializeField] private RectTransform _ScrollContent;
+        [SerializeField] private Transform _ScrollContent;
 
         #endregion
         
-        private const float MaximumBlurrySpeed = 7.5f;
-        private const float BlurryStartSpeed = 1;
+        private const float MaximumBlurrySpeed = 1f;
+        private const float BlurryStartSpeed = .2f;
 
         private int _viewIndexAtTop = -1;
 
@@ -25,7 +26,7 @@ namespace UI.SlotMachine
         public int CurrentItemIndex { get; private set; }
         public List<SlotItemType> OrderedSlotItemTypes { get; private set; }
         public float SlotViewSize { get; private set; }
-        public RectTransform ScrollContent => _ScrollContent;
+        public Transform ScrollContent => _ScrollContent;
         private int MiddleItemIndex => _SlotItemViews.Count / 2;
 
         #endregion
@@ -39,7 +40,7 @@ namespace UI.SlotMachine
             {
                 OrderedSlotItemTypes.Add(_SlotItemViews[i].ItemType);
             }
-            SlotViewSize = _SlotItemViews[0].RectTransform.rect.height;
+            SlotViewSize = Constants.SlotItemHeightInWorldUnits;
             UpdateViewPositions();
         }
 
@@ -64,7 +65,7 @@ namespace UI.SlotMachine
 
         private void UpdateViewPositions()
         {
-            GetItemAtIndexAndPosition((int)_ScrollContent.anchoredPosition.y, _SlotItemViews.Count, (int)SlotViewSize,
+            GetItemAtIndexAndPosition((int)_ScrollContent.localPosition.y, _SlotItemViews.Count, (int)SlotViewSize,
                 out var newTopItemIndex, out var startHeight);
             if (_viewIndexAtTop == newTopItemIndex)
             {
@@ -74,9 +75,9 @@ namespace UI.SlotMachine
             for (var i = 0; i < _SlotItemViews.Count; i++)
             {
                 var itemIndex = (newTopItemIndex + i) % _SlotItemViews.Count;
-                var anchoredPosition = _SlotItemViews[itemIndex].RectTransform.anchoredPosition;
-                anchoredPosition.y = startHeight - i * SlotViewSize;
-                _SlotItemViews[itemIndex].RectTransform.anchoredPosition = anchoredPosition;
+                var position = _SlotItemViews[itemIndex].transform.localPosition;
+                position.y = startHeight - i * SlotViewSize;
+                _SlotItemViews[itemIndex].transform.localPosition = position;
             }
 
             _viewIndexAtTop = newTopItemIndex;

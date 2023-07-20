@@ -1,18 +1,15 @@
-using System;
 using Core.Enum;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI.SlotMachine
 {
-    [RequireComponent(typeof(RectTransform))]
     public class SlotItemView : MonoBehaviour
     {
         #region Inspector
 
         [SerializeField] private SlotItemType _ItemType;
-        [SerializeField] private Image _Image;
-        [SerializeField] private Image _BlurredImage;
+        [SerializeField] private SpriteRenderer _Image;
+        [SerializeField] private SpriteRenderer _BlurredImage;
 
         #endregion
 
@@ -20,16 +17,6 @@ namespace UI.SlotMachine
 
         public SlotItemType ItemType => _ItemType;
 
-        public RectTransform RectTransform { get; private set; }
-
-        #endregion
-
-        #region Unity event functions
-
-        private void Awake()
-        {
-            RectTransform = GetComponent<RectTransform>();
-        }
 
         #endregion
 

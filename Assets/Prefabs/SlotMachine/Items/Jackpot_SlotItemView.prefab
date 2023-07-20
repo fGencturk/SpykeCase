@@ -11,10 +11,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jackpot_SlotItemView
       objectReference: {fileID: 0}
+    - target: {fileID: 1041089097584787798, guid: 06d09b706f521493ea6233c47ab9e3c2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d107d4e89b093475dab62c8a8e1d9633, type: 3}
     - target: {fileID: 5785090633437901023, guid: 06d09b706f521493ea6233c47ab9e3c2, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d107d4e89b093475dab62c8a8e1d9633, type: 3}
+    - target: {fileID: 6350886535302336603, guid: 06d09b706f521493ea6233c47ab9e3c2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ae5b37820ca14c89a53ec5acb999f23, type: 3}
     - target: {fileID: 7067552774123347012, guid: 06d09b706f521493ea6233c47ab9e3c2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -7,7 +7,7 @@ namespace UI.SlotMachine.Animation
     public interface ISlotScrollView
     {
         List<SlotItemType> OrderedSlotItemTypes { get; }
-        RectTransform ScrollContent { get; }
+        Transform ScrollContent { get; }
         float GetHeightDiffToTarget(int targetIndex, int loopCount);
     }
 }
